@@ -6,12 +6,12 @@
                 name="message"
                 class="form-control input-sm"
                 placeholder="Type your message here..."
-                v-model="newPrivateMessage"
-                @keyup.enter="sendPrivateMessage"
+                v-model="newMessage"
+                @keyup.enter="sendMessage"
                 @keyup="sendTypingEvent">
 
         <span class="input-group-btn">
-            <button class="btn btn-primary btn-sm" id="btn-chat" @click="sendPrivateMessage">
+            <button class="btn btn-primary btn-sm" id="btn-chat" @click="sendMessage">
                 Send
             </button>
         </span>
@@ -24,24 +24,24 @@
 
         data() {
             return {
-                newPrivateMessage: ''
+                newMessage: ''
             }
         },
 
         methods: {
             sendTypingEvent() {
-                Echo.join('invitation.' + this.to)
+                Echo.join('chat')
                     .whisper('typing', this.user);
             },
 
-            sendPrivateMessage() {
-                this.$emit('privatemessagesent', {
+            sendMessage() {
+                this.$emit('messagesent', {
                     user: this.user,
-                    message: this.newPrivateMessage,
+                    message: this.newMessage,
                     to_user: this.to
                 });
 
-                this.newPrivateMessage = ''
+                this.newMessage = ''
             }
         }
     }

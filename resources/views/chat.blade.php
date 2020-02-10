@@ -22,22 +22,22 @@
             <div class="col-md-4">
                 <div class="card-header">Online</div>
                 <ul class="list-group">
-                    <li class="list-group-item"  v-for="user in users">
+                    <li class="list-group-item"  v-for="user in allusers">
 
-                        <a :href="'/' + user.id" v-if="user.name=='test'">
+                        <a :href="'private/' + user.id" v-if="user.id!={{ auth()->user()->id }}">
                             @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
                         </a>
-                        <div v-if="user.name!='test'">
+                        <div v-if="user.id=={{ auth()->user()->id }}">
                             @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
                         </div>
 
                     </li>
                 </ul>
                 <br>
-                <div class="card-header">Conversations</div>
+                <div class="card-header">All users</div>
                 <ul class="list-group">
-                    <li class="list-group-item" v-for="user in conversationusers">
-                        <a :href="'/' + user.id">
+                    <li class="list-group-item" v-for="user in allusers">
+                        <a :href="'private/' + user.id">
                             @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
                         </a>
                     </li>

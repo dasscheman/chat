@@ -1,4 +1,5 @@
 <script>
+  var userid = JSON.parse("{{ json_encode(auth()->user()->id) }}");
   var to_user = JSON.parse("{{ json_encode($toUser->id) }}");
 </script>
 @extends('layouts.app')
@@ -14,30 +15,28 @@
                     </div>
                     <div class="card-footer">
                         <private-form
-                                @privatemessagesent="addPrivateMessage"
-                                :user="{{ auth()->user() }}"
-                                :to="{{ $toUser->id }}"
+                            @privatemessagesent="addPrivateMessage"
+                            :user="{{ auth()->user() }}"
+                            :to_user="{{ $toUser->id }}"
                         ></private-form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <div class="card-header">Online</div>
                 <ul class="list-group">
-                    <li class="list-group-item" v-for="user in users">
-                        @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
-                    </li>
-                </ul>
-                <br>
-                <div class="card-header">Dilemma's</div>
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="dilemma in dilemmas">
-                        <a :href="'/dilemma/' + dilemma.id + '/' + {{ $toUser->id }}">
-                            @{{ dilemma.naam }}
+                    <li class="list-group-item"  v-for="user in allusers">
+
+                        <a :href="'private/' + user.id" v-if="user.id!={{ auth()->user()->id }}">
+                            @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
                         </a>
+                        <div v-if="user.id=={{ auth()->user()->id }}">
+                            @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
+                        </div>
+
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 @endsection

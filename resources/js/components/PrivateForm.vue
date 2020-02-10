@@ -30,15 +30,14 @@
 
         methods: {
             sendTypingEvent() {
-                Echo.join('invitation.' + this.to)
+                Echo.join('chat')
                     .whisper('typing', this.user);
             },
-
             sendPrivateMessage() {
                 this.$emit('privatemessagesent', {
                     user: this.user,
                     message: this.newPrivateMessage,
-                    to_user: this.to
+                    to_user: to_user
                 });
 
                 this.newPrivateMessage = ''
