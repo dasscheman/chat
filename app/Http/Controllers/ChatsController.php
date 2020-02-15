@@ -23,7 +23,6 @@ class ChatsController extends Controller
     public function private($id)
     {
         $toUser = User::findOrFail($id);
-
         return view('private', compact('toUser'));
     }
 
@@ -34,21 +33,28 @@ class ChatsController extends Controller
             ->get();
     }
 
-    public function conversations()
+    public function fetchAllUsers()
     {
-        $startedConversations = Message::select('to')
-            ->distinct()
-            ->where('user_id', auth()->user()->id)
-            ->whereNotNull('to')
-            ->pluck('to')->toArray();
-        $receivedConversations = Message::select('user_id')
-            ->distinct()
-            ->where('user_id', '!=', auth()->user()->id)
-            ->where('to', auth()->user()->id)
-            ->pluck('user_id')->toArray();
-        $users = array_unique(array_merge($startedConversations, $receivedConversations));
+        // $startedConversations = Message::select('to')
+        //     ->distinct()
+        //     ->where('user_id', auth()->user()->id)
+        //     ->whereNotNull('to')
+        //     ->pluck('to')->toArray();
+        // $receivedConversations = Message::select('user_id')
+        //     ->distinct()
+        //     ->where('user_id', '!=', auth()->user()->id)
+        //     ->where('to', auth()->user()->id)
+        //     ->pluck('user_id')->toArray();
+        // $users = array_unique(array_merge($startedConversations, $receivedConversations));
 
-        return User::whereIn('id', $users)->get();
+        // return User::whereIn('id', $users)->get();
+
+        return User::all();
+    }
+
+    public function fetchCurrentUser()
+    {
+        return auth()->user();
     }
 
     public function sendMessage(Request $request)
@@ -80,14 +86,14 @@ class ChatsController extends Controller
         return $messages;
     }
 
-    public function sendPrivateMessage(Request $request, $to_user)
+    public function sendPrivateMessage(Request $request)
     {
         $message = auth()->user()->messages()->create([
             'message' => $request->message,
-            'to' => $to_user
+            'to' => $request->to_user
         ]);
 
-        $toUser = User::findOrFail($to_user);
+        $toUser = User::findOrFail($request->to_user);
 
 	      broadcast(new PrivateMessageSent(auth()->user(), $message, $toUser))->toOthers();
 

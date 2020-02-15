@@ -18,3 +18,7 @@ Broadcast::channel('chat', function ($user) {
 Broadcast::channel('invitation.{id}', function ($user, $orderId) {
 		return $user;
 });
+
+Broadcast::channel('dilemmauitkomst', function ($user) {
+		return $user;
+});

@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card-header">Online</div>
+                <!-- <div class="card-header">Online</div>
                 <ul class="list-group">
                     <li class="list-group-item"  v-for="user in allusers">
 
@@ -33,32 +33,21 @@
 
                     </li>
                 </ul>
-                <br>
+                <br> -->
                 <div class="card-header">All users</div>
                 <ul class="list-group">
                     <li class="list-group-item" v-for="user in allusers">
-                        <a :href="'private/' + user.id">
-                            @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
+                        <a :href="'private/' + user.id" v-if="user.id!={{ auth()->user()->id }}">
+                            @{{ user.name }}
+                            <span v-if="user.typing" class="badge badge-primary">typing...</span>
+                            <span v-if="user.online" class="badge badge-success">online...</span>
                         </a>
+                        <div v-if="user.id=={{ auth()->user()->id }}">
+                            @{{ user.name }}
+                        </div>
                     </li>
                 </ul>
                 <br>
-                <div class="card-header">Nieuwe Dilemma's</div>
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="dilemma in dilemmas">
-                        @{{ dilemma.naam }}
-                        @{{ dilemma.status}}
-                    </li>
-                </ul>
-                <br>
-                <div class="card-header">Afgeronde Dilemma's</div>
-                <ul class="list-group">
-                    <li class="list-group-item" v-for="dilemma in uitkomsten">
-                        @{{ dilemma.dilemma.naam }}
-                        <span v-if="dilemma.user_2_status==null" class="badge badge-primary">Wacht op reactie</span>
-                        <span v-else>Afgerond </span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <script>
   var userid = JSON.parse("{{ json_encode(auth()->user()->id) }}");
   var to_user = JSON.parse("{{ json_encode($toUser->id) }}");
+console.log(userid)
 </script>
 @extends('layouts.app')
 
@@ -22,21 +23,16 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-4">
-                <div class="card-header">Online</div>
-                <ul class="list-group">
-                    <li class="list-group-item"  v-for="user in allusers">
+            <div class="col-md-4">
+                <dilemma
+                    :dilemmas="dilemmas"
+                    :dilemma="dilemma"
+                    :user="{{ auth()->user() }}"
+                    :to_user="{{ $toUser->id }}"
 
-                        <a :href="'private/' + user.id" v-if="user.id!={{ auth()->user()->id }}">
-                            @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
-                        </a>
-                        <div v-if="user.id=={{ auth()->user()->id }}">
-                            @{{ user.name }} <span v-if="user.typing" class="badge badge-primary">typing...</span>
-                        </div>
 
-                    </li>
-                </ul>
-            </div> -->
+                ></dilemma>
+            </div>
         </div>
     </div>
 @endsection

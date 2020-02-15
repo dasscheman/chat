@@ -3,7 +3,8 @@
 namespace App\Events;
 
 use App\User;
-use App\Message;
+use App\Dilemma;
+use App\DilemmaUitkomst;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PrivateMessageSent implements ShouldBroadcast
+class UitkomstSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -26,27 +27,19 @@ class PrivateMessageSent implements ShouldBroadcast
     /**
      * Message details
      *
-     * @var \App\Message
+     * @var \App\DilemmaUitkomst
      */
-    public $message;
-
-    /**
-     * User that message is sent to
-     *
-     * @var \App\User
-     */
-    public $to;
+    // public $uitkomst;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, Message $message, User $to)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->message = $message;
-        $this->to = $to->id;
+        // $this->uitkomst = $uitkomst;
     }
 
     /**
@@ -56,11 +49,6 @@ class PrivateMessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $channel_user = $this->user->id . '-' . $this->to;
-        if($this->to < $this->user->id){
-            $channel_user = $this->to . '-' . $this->user->id;
-        }
-        
-        return new PresenceChannel('invitation.' . $channel_user);
+        return new PresenceChannel('dilemmauitkomst');
     }
 }
