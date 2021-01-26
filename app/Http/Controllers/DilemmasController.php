@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Events\MessageSent;
 use App\Events\PrivateMessageSent;
 use App\Events\UitkomstSent;
-use App\Message;
-use App\User;
-use App\Dilemma;
-use App\DilemmaUitkomst;
+use App\Models\Message;
+use App\Models\User;
+use App\Models\Dilemma;
+use App\Models\DilemmaUitkomst;
 use Illuminate\Http\Request;
 
 class DilemmasController extends Controller

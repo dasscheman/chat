@@ -2,9 +2,9 @@
 
 namespace App\Events;
 
-use App\User;
-use App\Dilemma;
-use App\DilemmaUitkomst;
+use App\Models\User;
+use App\Models\Dilemma;
+use App\Models\DilemmaUitkomst;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

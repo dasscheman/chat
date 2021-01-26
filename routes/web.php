@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,18 +13,25 @@
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Auth::routes(['register' => false, 'reset' => false ]);
 
-Route::get('/', 'ChatsController@index');
-Route::get('user', 'ChatsController@fetchCurrentUser');
-Route::get('allusers', 'ChatsController@fetchAllUsers');
+Route::get('/', [App\Http\Controllers\ChatsController::class, 'index'])->name('home');
 
-Route::post('dilemma', 'DilemmasController@saveUitkomst');
-Route::post('dilemmas', 'DilemmasController@fetchDilemmas');
 
-Route::get('messages', 'ChatsController@fetchMessages');
-Route::post('messages', 'ChatsController@sendMessage');
+//Route::get('/', 'ChatsController@index');
+Route::get('user', [App\Http\Controllers\ChatsController::class, 'fetchCurrentUser']);
+Route::get('allusers', [App\Http\Controllers\ChatsController::class, 'fetchAllUsers']);
 
-Route::get('private/{id}', 'ChatsController@private');
-Route::get('private/messages/{id}', 'ChatsController@fetchPrivateMessages');
-Route::post('private/messages', 'ChatsController@sendPrivateMessage');
+Route::post('dilemma', [App\Http\Controllers\DilemmasController::class, 'isaveUitkomst']);
+Route::post('dilemmas', [App\Http\Controllers\DilemmasController::class, 'fetchDilemmas']);
+
+Route::get('messages', [App\Http\Controllers\ChatsController::class, 'fetchMessages']);
+Route::post('messages', [App\Http\Controllers\ChatsController::class, 'sendMessage']);
+
+Route::get('private/{id}', [App\Http\Controllers\ChatsController::class, 'private']);
+Route::get('private/messages/{id}', [App\Http\Controllers\ChatsController::class, 'fetchPrivateMessages']);
+Route::post('private/messages', [App\Http\Controllers\ChatsController::class, 'sendPrivateMessage']);

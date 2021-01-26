@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use App\User;
-use App\Message;
+use App\Models\User;
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -60,7 +60,7 @@ class PrivateMessageSent implements ShouldBroadcast
         if($this->to < $this->user->id){
             $channel_user = $this->to . '-' . $this->user->id;
         }
-        
+
         return new PresenceChannel('invitation.' . $channel_user);
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
 use App\Events\PrivateMessageSent;
-use App\Message;
-use App\User;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChatsController extends Controller
