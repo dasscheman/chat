@@ -2,6 +2,9 @@
 
 return [
 
+    'register' => env('AUTH_REGISTER', 'false'),
+    'reset' => env('AUTH_RESET', 'false'),
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

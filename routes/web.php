@@ -12,17 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-Auth::routes(['register' => false, 'reset' => false ]);
+Auth::routes(['register' => config('auth.register'), 'reset' => config('auth.reset') ]);
 
 Route::get('/', [App\Http\Controllers\ChatsController::class, 'index'])->name('home');
-
-
-//Route::get('/', 'ChatsController@index');
 Route::get('user', [App\Http\Controllers\ChatsController::class, 'fetchCurrentUser']);
 Route::get('allusers', [App\Http\Controllers\ChatsController::class, 'fetchAllUsers']);
 
